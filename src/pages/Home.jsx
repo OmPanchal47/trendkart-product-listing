@@ -16,10 +16,22 @@ export default function Home() {
   });
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.map(enrichProduct));
+    // fetch from two public apis and merge so we have more products to show
+    Promise.all([
+      fetch("https://fakestoreapi.com/products").then((res) => res.json()),
+      fetch("https://dummyjson.com/products/category/mens-shirts?limit=5").then((res) => res.json()),
+      fetch("https://dummyjson.com/products/category/womens-dresses?limit=5").then((res) => res.json()),
+    ])
+      .then(([fakeStore, mensShirts, womensDresses]) => {
+        const extra = [...mensShirts.products, ...womensDresses.products].map((p) => ({
+          id: 1000 + p.id, // avoid clashing with fakestoreapi ids
+          title: p.title,
+          price: p.price,
+          category: p.category === "mens-shirts" ? "men's clothing" : "women's clothing",
+          image: p.thumbnail,
+          rating: { rate: p.rating, count: p.stock },
+        }));
+        setProducts([...fakeStore, ...extra].map(enrichProduct));
         setLoading(false);
       })
       .catch((err) => {
