@@ -3,9 +3,6 @@ export default function ProductCard({ product }) {
     <div className="col-6 col-md-4 col-lg-3 mb-4">
       <div className="card h-100 border-0">
         <div className="position-relative bg-light d-flex align-items-center justify-content-center product-img-wrap">
-          <span className="position-absolute top-0 start-0 m-2 badge bg-white text-dark border small">
-            {product.fitTag}
-          </span>
           <button className="position-absolute top-0 end-0 m-2 btn btn-sm btn-light rounded-circle">♡</button>
           <img src={product.image} alt={product.title} className="img-fluid" style={{ maxHeight: "85%" }} />
         </div>
