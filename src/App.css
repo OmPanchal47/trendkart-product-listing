@@ -7,8 +7,27 @@ body {
   padding: 20px;
 }
 
+.search-input {
+  width: 130px;
+}
+
+@media (min-width: 992px) {
+  .search-input {
+    width: 260px;
+  }
+}
+
 .product-img-wrap {
   aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.card {
+  min-width: 0;
+}
+
+.card-body {
+  min-width: 0;
   overflow: hidden;
 }
 
