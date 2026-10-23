@@ -16,7 +16,7 @@ export default function Navbar({ search, setSearch }) {
         </div>
 
         <Link to="/" className="brand">
-          URBAN<span>CRATE</span>
+          TREND<span>KART</span>
         </Link>
 
         <div className="header-right">
