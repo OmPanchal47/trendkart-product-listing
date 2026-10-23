@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Filters from "../components/Filters";
 import ProductCard from "../components/ProductCard";
@@ -28,16 +28,22 @@ export default function Home() {
       });
   }, []);
 
-  const filtered = useMemo(() => {
-    return products.filter((p) => {
-      if (search && !p.title.toLowerCase().includes(search.toLowerCase())) return false;
-      if (filters.gender.length && !filters.gender.includes(p.gender)) return false;
-      if (filters.category.length && !filters.category.includes(p.subCategory)) return false;
-      if (filters.color.length && !filters.color.includes(p.color.name)) return false;
-      if (filters.size.length && !p.sizes.some((s) => filters.size.includes(s))) return false;
-      return true;
-    });
-  }, [products, search, filters]);
+  // plain filter, runs every render - fine for this small dataset
+  function getFilteredProducts() {
+    let result = [];
+    for (let i = 0; i < products.length; i++) {
+      const p = products[i];
+      if (search && !p.title.toLowerCase().includes(search.toLowerCase())) continue;
+      if (filters.gender.length && !filters.gender.includes(p.gender)) continue;
+      if (filters.category.length && !filters.category.includes(p.subCategory)) continue;
+      if (filters.color.length && !filters.color.includes(p.color.name)) continue;
+      if (filters.size.length && !p.sizes.some((s) => filters.size.includes(s))) continue;
+      result.push(p);
+    }
+    return result;
+  }
+
+  const filtered = getFilteredProducts();
 
   return (
     <>
@@ -54,9 +60,9 @@ export default function Home() {
                 <h5>Men's shirt <span>- {filtered.length} items</span></h5>
               </div>
             </div>
-            {loading && <p>Loading products...</p>}
+            {loading && <p className="text-center mt-5">Loading products...</p>}
             {!loading && filtered.length === 0 && (
-              <p className="text-muted">No products match your filters.</p>
+              <p className="text-muted text-center mt-5">No products match your filters.</p>
             )}
             <div className="row">
               {filtered.map((p) => (

@@ -1,16 +1,18 @@
 export default function ProductCard({ product }) {
   return (
     <div className="col-6 col-md-4 col-lg-3 mb-4">
-      <div className="product-card">
-        <div className="product-img-wrap">
-          <span className="fit-badge">{product.fitTag}</span>
-          <button className="wish-btn">♡</button>
-          <img src={product.image} alt={product.title} />
+      <div className="card h-100 border-0">
+        <div className="position-relative bg-light d-flex align-items-center justify-content-center product-img-wrap">
+          <span className="position-absolute top-0 start-0 m-2 badge bg-white text-dark border small">
+            {product.fitTag}
+          </span>
+          <button className="position-absolute top-0 end-0 m-2 btn btn-sm btn-light rounded-circle">♡</button>
+          <img src={product.image} alt={product.title} className="img-fluid" style={{ maxHeight: "85%" }} />
         </div>
-        <div className="product-info">
-          <p className="brand-line">{product.gender} {product.subCategory}</p>
-          <p className="product-name">{product.title}</p>
-          <p className="price-line">₹{product.priceINR}</p>
+        <div className="card-body px-1">
+          <p className="text-muted text-uppercase small mb-1">{product.gender} {product.subCategory}</p>
+          <p className="mb-1 text-truncate">{product.title}</p>
+          <p className="fw-bold mb-0">₹{product.priceINR}</p>
         </div>
       </div>
     </div>
