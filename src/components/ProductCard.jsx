@@ -29,6 +29,7 @@ export default function ProductCard({ product }) {
   }
 
   function handleBuyNow() {
+    // skip the size check here, just use whatever is currently selected
     if (outOfStock) {
       setMessage("Out of stock");
       return;

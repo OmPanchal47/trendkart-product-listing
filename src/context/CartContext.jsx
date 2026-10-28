@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext(null);
 
+// load whatever was saved last time so cart survives a refresh
 function loadCart() {
   const saved = localStorage.getItem("cart");
   return saved ? JSON.parse(saved) : [];
@@ -46,6 +47,7 @@ export function CartProvider({ children }) {
   }
 
   function removeFromCart(id, size, color) {
+    // keep everything except the matching line
     setCart((prev) =>
       prev.filter((item) => !(item.id === id && item.size === size && item.color === color))
     );
