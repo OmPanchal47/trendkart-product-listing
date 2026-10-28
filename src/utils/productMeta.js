@@ -42,6 +42,9 @@ export function enrichProduct(p) {
   const fitTag = FIT_TAGS[p.id % FIT_TAGS.length];
   const priceINR = Math.round(p.price * 83);
 
+  // fake stock number, 0 means out of stock - used for add to cart validation
+  const stock = (p.id * 7) % 11;
+
   return {
     ...p,
     gender: pickGender(p.category),
@@ -50,5 +53,6 @@ export function enrichProduct(p) {
     color,
     fitTag,
     priceINR,
+    stock,
   };
 }

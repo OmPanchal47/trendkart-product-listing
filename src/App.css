@@ -17,6 +17,14 @@ body {
   }
 }
 
+.nav-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-size: 0.6rem;
+  padding: 3px 5px;
+}
+
 .product-img-wrap {
   aspect-ratio: 3/4;
   overflow: hidden;

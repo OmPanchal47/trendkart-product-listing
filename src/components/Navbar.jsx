@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 
 export default function Navbar({ search, setSearch }) {
+  const { cartCount } = useCart();
+  const { wishlistCount } = useWishlist();
+
   return (
     <nav className="navbar navbar-light bg-white border-bottom sticky-top px-3 py-2">
       <div className="d-flex align-items-center justify-content-between w-100">
@@ -27,8 +32,18 @@ export default function Navbar({ search, setSearch }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button className="btn border-0 fs-5">♡</button>
-          <button className="btn border-0 fs-5">🛒</button>
+          <Link to="/wishlist" className="btn border-0 fs-5 position-relative text-dark">
+            ♡
+            {wishlistCount > 0 && (
+              <span className="badge rounded-pill bg-danger nav-badge">{wishlistCount}</span>
+            )}
+          </Link>
+          <Link to="/cart" className="btn border-0 fs-5 position-relative text-dark">
+            🛒
+            {cartCount > 0 && (
+              <span className="badge rounded-pill bg-danger nav-badge">{cartCount}</span>
+            )}
+          </Link>
         </div>
       </div>
 
